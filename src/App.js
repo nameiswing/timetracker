@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useState } from 'react'
+import DataProvider from './DataContext'
+import { Box } from "./components/utils"
+import Header from "./components/Header"
+import Date from "./components/Date"
+import TimeControl from "./components/TimeControl"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+
+    return (
+        <DataProvider>
+            <Box>
+                <Header/>
+                <TimeControl/>
+            </Box>
+        </DataProvider>
+    )
+        
 }
 
-export default App;
+export default App
