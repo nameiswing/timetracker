@@ -4,11 +4,11 @@
     --dark-bg: #343239;
     --white: #e6e3e8;
     --white2: #ccc8d0;
-    --white3: hsl(270, 8%, 47%);
+    --white3: #786e81;
     --gray: #49464e;
     --teal: #009688;
-    --red: hsl(4, 52%, 53%);
-    --purple: hsl(262, 49%, 51%);
+    --red: #c55149;
+    --purple: #6d40ba;
     --font-main: "Poppins", sans-serif;
     --font-secondary: 'Nunito', sans-serif;
   }

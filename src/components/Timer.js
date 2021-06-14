@@ -1,34 +1,37 @@
 import { useState, useEffect } from 'react'
+import { useDataCtx } from '../DataContext'
 import { Wrap, Spanner } from './utils'
 
 const Timer = ({ startTime }) => {
 
-    let [hour, setHour] = useState(0)
-    let [minute, setMinute] = useState(0)
-    let [second, setSecond] = useState(0)
-    let hh = hour.toString().length === 1 ? "0" + hour : hour
-    let mm = minute.toString().length === 1 ? "0" + minute : minute
-    let ss = second.toString().length === 1 ? "0" + second : second
+    let {
+        mainHour, setMainHour,
+        mainMinute, setMainMinute,
+        mainSecond, setMainSecond
+    } = useDataCtx()
+    let hh = mainHour.toString().length === 1 ? "0" + mainHour : mainHour
+    let mm = mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute
+    let ss = mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond
 
     useEffect( () => { 
         if(startTime) {
             const interval = setInterval( () => { 
-                setSecond( second += 1 ) 
-                if( second === 60) {
-                    setSecond( second = 0 )
-                    setMinute( minute += 1 )
-                    if( minute === 60) {
-                        setMinute( minute = 0 )
-                        setHour( hour += 1 )
+                setMainSecond( mainSecond += 1 ) 
+                if( mainSecond === 60) {
+                    setMainSecond( mainSecond = 0 )
+                    setMainMinute( mainMinute += 1 )
+                    if( mainMinute === 60) {
+                        setMainMinute( mainMinute = 0 )
+                        setMainHour( mainHour += 1 )
                     }
                 }
             }, 1000) 
             return () => {
                 clearInterval(interval)
-                console.log(`Duration: ${hour.toString().length === 1 ? "0" + hour : hour}:${minute.toString().length === 1 ? "0" + minute : minute}:${second.toString().length === 1 ? "0" + second : second}`)
-                setSecond( second = 0 )
-                setMinute( minute = 0 )
-                setHour( hour = 0 )
+                console.log(`Duration: ${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`)
+                setMainSecond(0)
+                setMainMinute(0)
+                setMainHour(0)
             }
         }
     }, [startTime])

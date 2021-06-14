@@ -1,29 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDataCtx } from '../DataContext'
 import { Wrap, Spanner } from './utils'
 import styled from 'styled-components'
 
 
-const Break = ({ breakTime }) => {
+const Break = ({ breakTime, disabled }) => {
 
-    let [hour, setHour] = useState(1)
-    let [minute, setMinute] = useState(5)
-    let [second, setSecond]= useState(0)
+    let {
+        breakHour, setBreakHour,
+        breakMinute, setBreakMinute,
+        breakSecond, setBreakSecond
+    } = useDataCtx()
 
-    let hh = hour.toString().length === 1 ? "0" + hour : hour
-    let mm = minute.toString().length === 1 ? "0" + minute : minute
-    let ss = second.toString().length === 1 ? "0" + second : second
+    let hh = breakHour.toString().length === 1 ? "0" + breakHour : breakHour
+    let mm = breakMinute.toString().length === 1 ? "0" + breakMinute : breakMinute
+    let ss = breakSecond.toString().length === 1 ? "0" + breakSecond : breakSecond
 
     useEffect( () => {
-        if(breakTime) {
+        if(breakTime === !!1) {
             const isCounting = setInterval( () => {
-                if(hour === 0 && minute === 0 && second === 0) return 
-                setSecond( second -= 1 )
-                if(second === -1) {
-                    setSecond( second = 59 )
-                    setMinute( minute -= 1 )
-                    if(minute === - 1 && hour !== 0) {
-                        setMinute( minute = 59 )
-                        setHour( hour -= 1)
+                if(breakHour === 0 && breakMinute === 0 && breakSecond === 0) return 
+                setBreakSecond( breakSecond -= 1 )
+                if(breakSecond === -1) {
+                    setBreakSecond( breakSecond = 59 )
+                    setBreakMinute( breakMinute -= 1 )
+                    if(breakMinute === - 1 && breakHour !== 0) {
+                        setBreakMinute( breakMinute = 59 )
+                        setBreakHour( breakHour -= 1)
                     }
                 }
             }, 1000)
@@ -31,9 +34,12 @@ const Break = ({ breakTime }) => {
                 clearInterval(isCounting)
             }
         }
-    }, [breakTime])
-
-    // useEffect( () => {resetTime()}, [started])
+        if(breakTime === !!0 && disabled) {
+            setBreakHour(1)
+            setBreakMinute(5)
+            setBreakSecond(0)
+        }
+    }, [breakTime, disabled])
 
     return (
         <Wrapper 

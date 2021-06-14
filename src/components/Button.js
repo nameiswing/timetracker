@@ -49,14 +49,14 @@ const Btn = styled.button `
     font-family: var(--font-main);
     justify-content: center;
     letter-spacing: 1.5px;
-    margin: .25rem;
+    margin: .25rem .5rem;
     outline: none;
     overflow: hidden;
     padding: 0 .75rem;
     position: relative;
     text-transform: uppercase;
     /* transition: all .2s; */
-    width: ${ props => props.width ?? "max-content"};
+    width: 8rem;
     white-space: nowrap;
 
     ${ props => {

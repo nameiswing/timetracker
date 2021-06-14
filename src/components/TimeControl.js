@@ -1,6 +1,5 @@
 import DateComponent from "./Date"
 import { SubBox, Wrap } from "./utils"
-import { useState } from "react"
 import Timer from "./Timer"
 import Button from "./Button"
 import Break from "./Break"
@@ -8,44 +7,22 @@ import { useDataCtx } from '../DataContext'
 
 const TimeControl = () => {
 
-    const { clockedIn, toggleClock } = useDataCtx()
-
-    let [buttonTag, setTag] = useState("Clock In")
-    let [buttonTag2, setTag2] = useState("Start Break")
-    let [button2, setButton2] = useState(true)
-    let [buttonColor, setColor] = useState("var(--teal)")
-    let [buttonColor2, setColor2] = useState("var(--white3)")
-    let [breakTime, setBreakTime] = useState(false)
+    let { 
+        clockedIn, toggleClock,
+        breakTime, toggleBreak
+    } = useDataCtx()
 
     const startDay = () => {
-        if(clockedIn === false) {
-            setTag("Clock Out")
-            setColor("var(--red)")
-            setColor2("var(--purple)")
+        if(clockedIn === !!0) {
             toggleClock()
-        } else {
-            setTag("Clock In")
-            setTag2("Start Break")
-            setColor("var(--teal)")
-            setColor2("var(--white3)")
-            setBreakTime( breakTime = false )
-            setButton2( true )
+        }
+        else {
             toggleClock()
-            window.location.reload()
+            if(breakTime === !!1) toggleBreak()
         }
     }
 
-    const startBreak = () => {
-        if(breakTime === false){
-            setBreakTime( breakTime = !breakTime )
-            setButton2( false )
-            setTag2("Stop Break")
-        } else {
-            setBreakTime( breakTime = !breakTime )
-            setButton2( true )
-            setTag2("Start Break")
-        }
-    }
+    const startBreak = () => toggleBreak()
 
     return (
         <SubBox>
@@ -54,24 +31,22 @@ const TimeControl = () => {
             <Wrap backgroundColor="transparent" padding=".5rem">
                 <Wrap backgroundColor="transparent" padding=".25rem">
                     <Button 
-                        bgColor={buttonColor}
+                        bgColor={ clockedIn ? "var(--red)" : "var(--teal)"}
                         clickHandler={ startDay }
-                        tagName={buttonTag}
-                        width="7.75rem"
+                        tagName={ clockedIn ? "Clock Out" : "Clock In" }
                     />
                 </Wrap>
                 <Wrap backgroundColor="transparent" padding=".25rem">
                     <Button 
-                        bgColor={ buttonColor2 }
-                        bordered={ button2 }
+                        bgColor={ !clockedIn ? "var(--white3)" : "var(--purple)" }
+                        bordered={ !breakTime }
                         clickHandler={ startBreak }
-                        tagName={ buttonTag2 } 
-                        width="7.75rem"
+                        tagName={ clockedIn && breakTime ? "Stop Break" : "Start Break" }
                         disabled={ !clockedIn }
                     />
                 </Wrap>
             </Wrap>
-            <Break breakTime={breakTime} time={ clockedIn }/>
+            <Break breakTime={ breakTime } disabled={ !clockedIn }/>
         </SubBox>
     )
 }
