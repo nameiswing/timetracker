@@ -42,3 +42,9 @@ export const Spanner = styled.span `
     transform: ${ props => props.transform };
     width: ${ props => props.width }
 `
+export const LineBreak = styled(Wrap)`
+    background-color: var(--gray);
+    height: .125rem;
+    border-radius: 1rem;
+    margin: 1rem 1.0625rem 0 1.0625rem;
+`

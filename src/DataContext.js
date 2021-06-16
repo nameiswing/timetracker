@@ -15,9 +15,9 @@ const DataProvider = ({ children }) => {
     const [mainMinute, setMainMinute] = useState(0)
     const [mainSecond, setMainSecond] = useState(0)
 
-    const [breakHour, setBreakHour] = useState(1) //Break.js
-    const [breakMinute, setBreakMinute] = useState(5) //Break.js
-    const [breakSecond, setBreakSecond]= useState(0)//Break.js
+    const [breakHour, setBreakHour] = useState(1)
+    const [breakMinute, setBreakMinute] = useState(5)
+    const [breakSecond, setBreakSecond]= useState(0)
 
 
     return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDataCtx } from '../DataContext'
 import { Wrap, Spanner } from './utils'
 
@@ -9,6 +9,7 @@ const Timer = ({ startTime }) => {
         mainMinute, setMainMinute,
         mainSecond, setMainSecond
     } = useDataCtx()
+
     let hh = mainHour.toString().length === 1 ? "0" + mainHour : mainHour
     let mm = mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute
     let ss = mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond
