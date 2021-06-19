@@ -1,4 +1,4 @@
-// import { useState } from 'react'
+import { useEffect } from 'react'
 import DataProvider from './DataContext'
 import { Box, LineBreak } from "./components/utils"
 import Header from "./components/Header"
@@ -7,6 +7,16 @@ import Timelog from './components/Timelog'
 
 
 const App = () => {
+
+    useEffect(() => {
+        //temp storage for timeLog object saved in localStorage
+        localStorage.setItem('objectContent', '{}'); 
+        console.log('objectContent', '') 
+
+        return () => {
+
+        }
+    }, [])
 
     return (
         <DataProvider>

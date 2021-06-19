@@ -5,12 +5,15 @@ import Button from "./Button"
 import Break from "./Break"
 import { useDataCtx } from '../DataContext'
 
+
 const TimeControl = () => {
+
 
     let { 
         clockedIn, toggleClock,
         breakTime, toggleBreak
     } = useDataCtx()
+
 
     const startDay = () => {
         if(clockedIn === !!0) {
@@ -22,12 +25,10 @@ const TimeControl = () => {
         }
     }
 
-    const startBreak = () => toggleBreak()
-
     return (
         <SubBox>
-            <DateComponent time={ clockedIn }/>
-            <Timer startTime={ clockedIn }/>
+            <DateComponent time={ clockedIn } />
+            <Timer startTime={ clockedIn } />
             <Wrap backgroundColor="transparent" padding=".5rem">
                 <Wrap backgroundColor="transparent" padding=".25rem">
                     <Button 
@@ -40,7 +41,7 @@ const TimeControl = () => {
                     <Button 
                         bgColor={ !clockedIn ? "var(--white3)" : "var(--purple)" }
                         bordered={ !breakTime }
-                        clickHandler={ startBreak }
+                        clickHandler={ toggleBreak }
                         tagName={ clockedIn && breakTime ? "Stop Break" : "Start Break" }
                         disabled={ !clockedIn }
                     />

@@ -1,22 +1,21 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useEffect } from 'react'
 import { SubBox, Wrap } from './utils'
 import Spinner from './Spinner'
+import { useDataCtx } from '../DataContext'
+
 
 const Timelog = () => {
 
-    const [timeSheet, setTimeSheet] = useState(null)
+    let { timeSheet, setTimeSheet } = useDataCtx()
 
-    useEffect( () => {
-        setTimeout(() => axios.get("http://localhost:8000/dataLog")
-            .then(res => {
-                setTimeSheet(res.data.reverse())
-            })
-            .catch(err => {
-                console.log(err.message)
-            }),2000)
-    }, [])
+        useEffect( () => {
+            const timeLogs = localStorage.getItem("timeLogs")
+            if( timeLogs === null ) return setTimeSheet(null)
+            const parsedStorage = JSON.parse(timeLogs)
+            console.log(parsedStorage)
+            setTimeSheet([...parsedStorage])
+        }, [])
 
     return (
         <Wrapper justify={timeSheet === null ? true : false}>

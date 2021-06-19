@@ -7,7 +7,8 @@ const Timer = ({ startTime }) => {
     let {
         mainHour, setMainHour,
         mainMinute, setMainMinute,
-        mainSecond, setMainSecond
+        mainSecond, setMainSecond,
+        timeSheet
     } = useDataCtx()
 
     let hh = mainHour.toString().length === 1 ? "0" + mainHour : mainHour
@@ -16,6 +17,7 @@ const Timer = ({ startTime }) => {
 
     useEffect( () => { 
         if(startTime) {
+            console.log(timeSheet)
             const interval = setInterval( () => { 
                 setMainSecond( mainSecond += 1 ) 
                 if( mainSecond === 60) {
@@ -27,9 +29,10 @@ const Timer = ({ startTime }) => {
                     }
                 }
             }, 1000) 
-            return () => {
+            return async () => {
                 clearInterval(interval)
-                console.log(`Duration: ${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`)
+                const duration = `${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`
+                console.log(`Duration: ${duration}`)
                 setMainSecond(0)
                 setMainMinute(0)
                 setMainHour(0)
