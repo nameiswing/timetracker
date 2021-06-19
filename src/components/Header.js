@@ -8,7 +8,7 @@ const Header = () => {
             backgroundColor="var(--dark-bg2)" 
             padding=".5rem 1rem"
         >
-            work<strong>pulse</strong>
+            time<strong>tracker</strong>
         </Wrap>
         </>
     )
