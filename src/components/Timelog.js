@@ -1,52 +1,33 @@
 import styled from 'styled-components'
-import { useEffect } from 'react'
 import { SubBox, Wrap } from './utils'
 import Spinner from './Spinner'
 import { useDataCtx } from '../DataContext'
 
-
 const Timelog = () => {
 
-    let { timeSheet, setTimeSheet } = useDataCtx()
+    const { timeSheet, fetchFromLocalStorage } = useDataCtx()
 
-        useEffect( () => {
-            const timeLogs = localStorage.getItem("timeLogs")
-            if( timeLogs === null ) return setTimeSheet(null)
-            const parsedStorage = JSON.parse(timeLogs)
-            console.log(parsedStorage)
-            setTimeSheet([...parsedStorage])
-        }, [])
+    window.addEventListener('load', fetchFromLocalStorage())
+    window.addEventListener('click', fetchFromLocalStorage())
 
     return (
-        <Wrapper justify={timeSheet === null ? true : false}>
-            {timeSheet !== null ? 
-                timeSheet.map( log => (
-                    <Log key={log.id} backgroundColor="var(--dark-bg2)">
+        <Wrapper justify={timeSheet.current.length === 0 ? true : false}>
+            {timeSheet.current !== null ? 
+                timeSheet.current.map( log => (
+                    <Log key={log.idValue} backgroundColor="var(--dark-bg2)">
                         <Date>{log.date}</Date>
-                        <Wrap justifyContent="space-around" width="100%">
+                        <Wrap key={log.idValue} justifyContent="space-around" width="100%">
                             <SubBox margin="0 1rem">
-                                <Wrap color="var(--white2)">
-                                    Clock In
-                                </Wrap>
-                                <Wrap fontSize="1rem">
-                                    {log.started}
-                                </Wrap>
+                                <Wrap color="var(--white2)">Clock In</Wrap>
+                                <Wrap fontSize="1rem">{log.started}</Wrap>
                             </SubBox>
                             <SubBox margin="0 1rem">
-                                <Wrap color="var(--white2)">
-                                    Clock Out
-                                </Wrap>
-                                <Wrap fontSize="1rem">
-                                    {log.ended}
-                                </Wrap>
+                                <Wrap color="var(--white2)">Clock Out</Wrap>
+                                <Wrap fontSize="1rem">{log.ended}</Wrap>
                             </SubBox>
                             <SubBox margin="0 1rem">
-                                <Wrap color="var(--white2)">
-                                    Duration
-                                </Wrap>
-                                <Wrap fontSize="1rem">
-                                    {log.duration}
-                                </Wrap>
+                                <Wrap color="var(--white2)">Duration</Wrap>
+                                <Wrap fontSize="1rem">{log.duration}</Wrap>
                             </SubBox>
                         </Wrap>
                     </Log>
@@ -61,9 +42,15 @@ const Wrapper = styled(SubBox)`
     background-color: transparent;
     ${ props => props.justify ? "justify-content: center;" : ""}
     align-items: center;
-    height: 23.4375rem;
-    overflow: hidden;
+    height: 24.5rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding: .5rem 1rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `
 const Log = styled(Wrap)`
     border-radius: .25rem;

@@ -1,6 +1,6 @@
+import { useDataCtx } from './DataContext'
 import { useEffect } from 'react'
-import DataProvider from './DataContext'
-import { Box, LineBreak } from "./components/utils"
+import { Box, LineBreak1, LineBreak2 } from "./components/utils"
 import Header from "./components/Header"
 import TimeControl from "./components/TimeControl"
 import Timelog from './components/Timelog'
@@ -8,25 +8,16 @@ import Timelog from './components/Timelog'
 
 const App = () => {
 
-    useEffect(() => {
-        //temp storage for timeLog object saved in localStorage
-        localStorage.setItem('objectContent', '{}'); 
-        console.log('objectContent', '') 
-
-        return () => {
-
-        }
-    }, [])
+    const { fetchFromLocalStorage } = useDataCtx()
 
     return (
-        <DataProvider>
-            <Box>
-                <Header/>
-                <TimeControl/>
-                <LineBreak/>
-                <Timelog/>
-            </Box>
-        </DataProvider>
+        <Box>
+            <Header />
+            <TimeControl />
+            <LineBreak1 />
+            <Timelog />
+            <LineBreak2 />
+        </Box>
     )
         
 }

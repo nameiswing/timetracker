@@ -5,23 +5,24 @@ import Button from "./Button"
 import Break from "./Break"
 import { useDataCtx } from '../DataContext'
 
-
 const TimeControl = () => {
-
 
     let { 
         clockedIn, toggleClock,
-        breakTime, toggleBreak
+        breakTime, toggleBreak,
+        storeToLocal, fetchFromLocalStorage
     } = useDataCtx()
 
 
-    const startDay = () => {
+    const startDay = async () => {
         if(clockedIn === !!0) {
             toggleClock()
         }
         else {
             toggleClock()
             if(breakTime === !!1) toggleBreak()
+            await fetchFromLocalStorage()
+            storeToLocal()
         }
     }
 
