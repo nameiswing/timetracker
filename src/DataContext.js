@@ -40,7 +40,7 @@ const DataProvider = ({ children }) => {
             localStorage.setItem("timeLog", stringifiedLog)
         }
         catch(err) {console.error(err.message)}
-    } //store saved temporary object(log info) into timeLog array
+    } //store(to localStorage."key") saved temporary object(log info) into timeLog array
 
     const storeTempObjContent = async (key, content) => {
         const stringifiedLogItem = JSON.stringify(content)
