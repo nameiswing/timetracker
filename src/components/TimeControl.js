@@ -1,28 +1,31 @@
 import DateComponent from "./Date"
 import { SubBox, Wrap } from "./utils"
+import { useDataCtx } from '../DataContext'
 import Timer from "./Timer"
 import Button from "./Button"
 import Break from "./Break"
-import { useDataCtx } from '../DataContext'
 
 const TimeControl = () => {
 
     let { 
         clockedIn, toggleClock,
         breakTime, toggleBreak,
-        storeToLocal, fetchFromLocalStorage
+        storeToLocalStorage, fetchFromLocalStorage,
+        logStart, logEnd
     } = useDataCtx()
 
 
     const startDay = async () => {
         if(clockedIn === !!0) {
             toggleClock()
+            logStart()
         }
         else {
             toggleClock()
             if(breakTime === !!1) toggleBreak()
-            await fetchFromLocalStorage()
-            storeToLocal()
+            await logEnd()
+            await storeToLocalStorage()
+            fetchFromLocalStorage()
         }
     }
 

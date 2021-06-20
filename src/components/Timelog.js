@@ -8,7 +8,6 @@ const Timelog = () => {
     const { timeSheet, fetchFromLocalStorage } = useDataCtx()
 
     window.addEventListener('load', fetchFromLocalStorage())
-    window.addEventListener('click', fetchFromLocalStorage())
 
     return (
         <Wrapper justify={timeSheet.current.length === 0 ? true : false}>
@@ -21,7 +20,7 @@ const Timelog = () => {
                                 <Wrap color="var(--white2)">Clock In</Wrap>
                                 <Wrap fontSize="1rem">{log.started}</Wrap>
                             </SubBox>
-                            <SubBox margin="0 1rem">
+                             <SubBox margin="0 1rem">
                                 <Wrap color="var(--white2)">Clock Out</Wrap>
                                 <Wrap fontSize="1rem">{log.ended}</Wrap>
                             </SubBox>
@@ -59,7 +58,7 @@ const Log = styled(Wrap)`
     flex-direction: column;
     justify-content: space-around;
     margin-top: 1.25rem;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
     position: relative;
     padding: 1.125rem .875rem .875rem .75rem;
     width: 20rem;

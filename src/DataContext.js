@@ -1,4 +1,5 @@
 import React, { useState, useContext, useRef} from 'react'
+import uuid from 'react-uuid'
 
 const DataContext = React.createContext()
 export const useDataCtx = () => useContext(DataContext);
@@ -20,39 +21,35 @@ const DataProvider = ({ children }) => {
     const [breakHour, setBreakHour] = useState(1)
     const [breakMinute, setBreakMinute] = useState(5)
     const [breakSecond, setBreakSecond]= useState(0)
-    // const [timeSheet, setTimeSheet] = useState([])
     const timeSheet = useRef([])
 
-    const storeToLocal = async () => {
-
+    const storeToLocalStorage = async () => {
         try {
-            const timeLog = JSON.parse(localStorage.getItem("timeLog"))
-            const idValue = JSON.parse(localStorage.getItem("idValue"))
-            const date = JSON.parse(localStorage.getItem("date"))
-            const started = JSON.parse(localStorage.getItem("started"))
-            const ended = JSON.parse(localStorage.getItem("ended"))
-            const duration = JSON.parse(localStorage.getItem("duration"))
+            const timeLog = await JSON.parse(localStorage.getItem("timeLog"))
+            const idValue = await JSON.parse(localStorage.getItem("idValue"))
+            const date = await JSON.parse(localStorage.getItem("date"))
+            const started = await JSON.parse(localStorage.getItem("started"))
+            const ended = await JSON.parse(localStorage.getItem("ended"))
+            const duration = await JSON.parse(localStorage.getItem("duration"))
 
-            const logObj = await {...idValue, ...date, ...started, ...ended, ...duration}
-            // setTimeSheet([...timeSheet.current, logObj])
+            const logObj = {...idValue, ...date, ...started, ...ended, ...duration}
+            timeSheet.current = [ ...timeSheet.current, logObj ]
             const addTimeLog = [...timeLog, logObj]
             const stringifiedLog = JSON.stringify(addTimeLog)
 
             localStorage.setItem("timeLog", stringifiedLog)
-            timeSheet.current = [...timeSheet.current, logObj]
         }
         catch(err) {console.error(err.message)}
-    } 
+    } //store saved temporary object(log info) into timeLog array
 
     const storeTempObjContent = async (key, content) => {
         const stringifiedLogItem = JSON.stringify(content)
         localStorage.setItem(key, stringifiedLogItem)
-        // console.log(JSON.parse(localStorage.getItem(key)))
     } // to Date.js, Timer.js
 
     const fetchFromLocalStorage = () => {
         let timeLog = localStorage.getItem("timeLog")
-        if(typeof timeLog !== "string") {
+        if(timeLog === null) {
             localStorage.setItem("timeLog", "[]")
             return timeLog
         }
@@ -87,13 +84,31 @@ const DataProvider = ({ children }) => {
         return { d, dateNow, hours, idValue, minutes, months, timeNow } 
     } // to Date.js
 
+    const logStart = () => {
+        getDate()
+        const { d, dateNow, idValue, timeNow } = getDate()
+        storeTempObjContent("date", {date: `${dateNow}`})
+        storeTempObjContent("started", {started: `${timeNow}`})
+        storeTempObjContent("idValue", {idValue: `${idValue}.${uuid().substring(0,15)}`})
+    } //saves real-time start log data to localStorage
+
+    const logEnd = () => {
+        getDate()
+        const { timeNow } = getDate()
+        storeTempObjContent("ended", {ended: `${timeNow}`})
+        const duration = `${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`
+        console.log(`Duration: ${duration}`)
+        storeTempObjContent("duration", {duration: `${duration}`})
+    }//saves real-time end log data to localStorage
+
 
 
     return (
         <DataContext.Provider 
             value={{
                 getDate,
-                storeToLocal, storeTempObjContent,// get/add log in localStorage
+                storeToLocalStorage, storeTempObjContent,// get/add log in localStorage
+                logStart, logEnd,
 
                 timeSheet, fetchFromLocalStorage,
 

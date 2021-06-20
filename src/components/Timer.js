@@ -28,11 +28,11 @@ const Timer = ({ startTime }) => {
                     }
                 }
             }, 1000) 
-            return async () => {
+            return () => {
                 clearInterval(interval)
-                const duration = `${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`
-                console.log(`Duration: ${duration}`)
-                storeTempObjContent("duration", {duration: `${duration}`})
+                // const duration = `${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`
+                // console.log(`Duration: ${duration}`)
+                // storeTempObjContent("duration", {duration: `${duration}`})
                 setMainSecond(0)
                 setMainMinute(0)
                 setMainHour(0)
