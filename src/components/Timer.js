@@ -7,8 +7,7 @@ const Timer = ({ startTime }) => {
     let {
         mainHour, setMainHour,
         mainMinute, setMainMinute,
-        mainSecond, setMainSecond,
-        storeTempObjContent,
+        mainSecond, setMainSecond
     } = useDataCtx()
 
     let hh = mainHour.toString().length === 1 ? "0" + mainHour : mainHour
@@ -30,9 +29,6 @@ const Timer = ({ startTime }) => {
             }, 1000) 
             return () => {
                 clearInterval(interval)
-                // const duration = `${mainHour.toString().length === 1 ? "0" + mainHour : mainHour}:${mainMinute.toString().length === 1 ? "0" + mainMinute : mainMinute}:${mainSecond.toString().length === 1 ? "0" + mainSecond : mainSecond}`
-                // console.log(`Duration: ${duration}`)
-                // storeTempObjContent("duration", {duration: `${duration}`})
                 setMainSecond(0)
                 setMainMinute(0)
                 setMainHour(0)
