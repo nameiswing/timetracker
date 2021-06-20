@@ -18,19 +18,20 @@ const Button = ({
             bordered = { bordered }
             bgColor = { bgColor ?? "#2196F3"}
             boxShadow = { boxShadow }
-            color = { color  ?? "#fdfdfd"}
-            disabled ={disabled}
-            onClick = { clickHandler }
-            data-color = { bordered ? !bgColor ? "#2196F3" : bgColor : color}
-            size = { size ?? "small"} //medium and large
             borderRadius = { borderRadius }
+            color = { color  ?? "#fdfdfd"}
+            data-color = { bordered ? !bgColor ? "#2196F3" : bgColor : color}
+            disabled ={disabled}
+            id="clock-btn"
+            onClick = { clickHandler }
+            size = { size ?? "small"} //medium and large
             width = { width }
         >
             { tagName ?? "Button"}
         </Btn>
     )
 }
-
+//
 export default Button
 
 Button.propTypes = {

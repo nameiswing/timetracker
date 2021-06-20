@@ -4,8 +4,11 @@ const Header = () => {
 
     return (
         <>
-        <Wrap padding=".5rem 1rem">
-            work<strong>pulse</strong>
+        <Wrap 
+            backgroundColor="var(--dark-bg2)" 
+            padding=".5rem 1rem"
+        >
+            time<strong>tracker</strong>
         </Wrap>
         </>
     )

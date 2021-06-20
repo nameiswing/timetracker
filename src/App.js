@@ -1,20 +1,19 @@
-// import { useState } from 'react'
-import DataProvider from './DataContext'
-import { Box } from "./components/utils"
+import { Box, LineBreak1, LineBreak2 } from "./components/utils"
 import Header from "./components/Header"
-import Date from "./components/Date"
 import TimeControl from "./components/TimeControl"
+import Timelog from './components/Timelog'
 
 
 const App = () => {
 
     return (
-        <DataProvider>
-            <Box>
-                <Header/>
-                <TimeControl/>
-            </Box>
-        </DataProvider>
+        <Box>
+            <Header />
+            <TimeControl />
+            <LineBreak1 />
+            <Timelog />
+            <LineBreak2 />
+        </Box>
     )
         
 }

@@ -9,7 +9,7 @@ export const Box = styled.div`
     flex-direction: column;
     height: 44rem;
     overflow: hidden;
-    width: 23rem;
+    width: 22rem;
 `
 export const SubBox = styled.div`
     background-color: transparent;
@@ -18,13 +18,14 @@ export const SubBox = styled.div`
 `
 
 export const Wrap = styled.div `
-    background-color: ${props => props.backgroundColor || "var(--gray)"};
+    background-color: ${props => props.backgroundColor || "transparent"};
     color: ${props => props.color || "var(--white)"};
     display: flex;
     font-size: ${ props => props.fontSize };
-    justify-content: center;
+    justify-content: ${ props=> props.justifyContent || "center"};
+    margin: ${ props => props.margin};
     padding: ${ props => props.padding };
-    width: ${ props => props.width}
+    width: ${ props => props.width }
 `
 
 export const Footer = styled.footer `
@@ -41,4 +42,13 @@ export const Spanner = styled.span `
     margin: 0 .5px;
     transform: ${ props => props.transform };
     width: ${ props => props.width }
+`
+export const LineBreak1 = styled(Wrap)`
+    background-color: var(--gray);
+    height: .125rem;
+    border-radius: 1rem;
+    margin: 1rem 1rem 0 1rem;
+`
+export const LineBreak2 = styled(LineBreak1)`
+    margin: 0 1rem;
 `
