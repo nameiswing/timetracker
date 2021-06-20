@@ -40,7 +40,7 @@ const DataProvider = ({ children }) => {
             localStorage.setItem("timeLog", stringifiedLog)
         }
         catch(err) {console.error(err.message)}
-    } //store(to localStorage."key") saved temporary object(log info) into timeLog array
+    } //store temporary object(log info) into timeLog array(localStorage)
 
     const storeTempObjContent = async (key, content) => {
         const stringifiedLogItem = JSON.stringify(content)
@@ -60,18 +60,8 @@ const DataProvider = ({ children }) => {
     const getDate = () => {
 
         const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
+            "Jan","Feb", "Mar", "Apr", "May", "Jun", 
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ]
     
         const d = new Date();
@@ -90,7 +80,8 @@ const DataProvider = ({ children }) => {
         storeTempObjContent("date", {date: `${dateNow}`})
         storeTempObjContent("started", {started: `${timeNow}`})
         storeTempObjContent("idValue", {idValue: `${idValue}.${uuid().substring(0,15)}`})
-    } //saves real-time start log data to localStorage
+    } //saves real-time start log data to localStorage 
+    // saves in own key value for later use at storeToLocalStorage()
 
     const logEnd = () => {
         getDate()
@@ -100,14 +91,14 @@ const DataProvider = ({ children }) => {
         console.log(`Duration: ${duration}`)
         storeTempObjContent("duration", {duration: `${duration}`})
     }//saves real-time end log data to localStorage
-
+    // saves in own key value for later use at storeToLocalStorage()
 
 
     return (
         <DataContext.Provider 
             value={{
                 getDate,
-                storeToLocalStorage, storeTempObjContent,// get/add log in localStorage
+                storeToLocalStorage, storeTempObjContent,
                 logStart, logEnd,
 
                 timeSheet, fetchFromLocalStorage,
