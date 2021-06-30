@@ -1,12 +1,24 @@
 import { useDataCtx } from '../DataContext'
+import { useEffect, useRef } from 'react'
 import { Wrap } from "./utils"
 
 
 const DateComponent = ({ time }) => {
 
     const { getDate } = useDataCtx()
-    const { dateNow, timeNow } = getDate()
-        
+    
+    const startTime = useRef(null)
+    const startDate = useRef(null)
+
+    useEffect(() => {
+        const { timeNow, dateNow } = getDate()
+        const now = {timeNow, dateNow}
+        //values from getDate() will mutate once real-time value changes
+        //new object was created from destructured values so that it won't mutate
+        startTime.current = now.timeNow
+        startDate.current = now.dateNow
+    }, [time])
+
     return (
         <Wrap backgroundColor="transparent" width="100%">
             <Wrap 
@@ -15,7 +27,7 @@ const DateComponent = ({ time }) => {
                 fontSize="smaller"
                 padding="1.5rem 1rem .75rem 1rem"
             >
-                { time ? `Started at ${timeNow}`: "Not Yet Started" }
+                { time ? `Started at ${startTime.current}`: "Not Yet Started" }
             </Wrap>
             <Wrap 
                 backgroundColor="transparent" 
@@ -23,7 +35,7 @@ const DateComponent = ({ time }) => {
                 fontSize="smaller"
                 padding="1.5rem 1rem .75rem 1rem;"
             >
-                {dateNow}
+                { time ? startDate.current : getDate().dateNow}
             </Wrap>
         </Wrap>
         
