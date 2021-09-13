@@ -8,6 +8,9 @@ const Info = () => {
     const infoEl = document.querySelector('#info');
     
     const [ isOpen, setIsOpen ] = useState(false);
+    const [ confirmed, setConfirmed ] = useState(false);
+    let [ timer, setTimer ] = useState(5);
+    let [ ticker, setTicker ] = useState(null);
 
     const handleOpen = () => {
         const infoEl = document.querySelector('#info');
@@ -17,6 +20,28 @@ const Info = () => {
     const handleClose = () => {
         setTimeout(() => setIsOpen(false), 500);
         infoEl.style.left = "100%";
+    }
+
+    const handleConfirm = () => {
+        setConfirmed(true);
+        setTicker( ticker = 
+            setInterval(() => {
+                setTimer(timer -= 1);
+                if(timer === 0) {
+                    setConfirmed(false);
+                    clearInterval(ticker);
+                    setTimer(5);
+                }
+            }, 1000)
+        );
+    }
+
+    const deleteAll = () => {
+        localStorage.removeItem('timeLog');
+        window.location.reload();
+        setConfirmed(false);
+        clearInterval(ticker);
+        setTimer(5);
     }
 
     return (
@@ -50,7 +75,17 @@ const Info = () => {
                 { isOpen && <InfoText id="info-text">
                     Save time logs in  your local storage. Logs can only be accessed from the device you are currently using.
                 </InfoText> }
+            { 
+                confirmed === false ? 
+                    <DeleteAll onClick={()=> handleConfirm()}>
+                    Delete All Logs
+                    </DeleteAll> : 
+                    <DeleteAll onClick={()=> deleteAll()}>
+                    Confirm Deletion {timer}s
+                    </DeleteAll>
+            }
             </TextWrapper>
+
         </InfoBox>
     )
 }
@@ -88,13 +123,15 @@ const Icon = styled.img`
 const TextWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     background-color: #3f3b44f4;
-    height: calc(100% - 2.5rem);
+    height: calc(100% - 2.75rem);
     transform: translateY(2.625rem);
 `
 const animate = keyframes`
-    0% { opacity: 0; transform: translateY(.5rem); }
-    100% { opacity: 1; transform: translateY(0rem); }
+    0% { opacity: 0; transform: translateY(-9rem); }
+    100% { opacity: 1; transform: translateY(-9.75rem); }
 `
 const InfoText = styled.p`
     padding: .875rem 1rem;
@@ -107,4 +144,26 @@ const InfoText = styled.p`
     border-radius: .25rem;
     background-color: #3f3b44da;
     animation: ${animate} .6s ease-in-out forwards;
+`
+const DeleteAll = styled.button`
+    justify-self: flex-end;
+    background-color: transparent;
+    /* border: .125rem solid var(--red); */
+    border: none;
+    color: var(--red);
+    outline: none;
+    font-size: 1rem;
+    font-weight: 500;
+    width: 14rem;
+    padding: .625rem 1.25rem;
+    border-radius: .25rem;
+    margin-bottom: 3rem;
+    transition: all .15s ease-out;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(.9);
+        color: var(--white);
+        background-color: var(--red);
+    }
 `
