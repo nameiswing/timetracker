@@ -1,5 +1,5 @@
 {
-  "name": "workpulse_context_api",
+  "name": "timetracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
