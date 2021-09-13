@@ -42,7 +42,7 @@ const DataProvider = ({ children }) => {
         catch(err) {console.error(err.message)}
     } //store temporary object(log info) into timeLog array(localStorage)
 
-    const storeTempObjContent = async (key, content) => {
+    const storeTempObjContent = (key, content) => {
         const stringifiedLogItem = JSON.stringify(content)
         localStorage.setItem(key, stringifiedLogItem)
     } // to Date.js, Timer.js
@@ -76,7 +76,7 @@ const DataProvider = ({ children }) => {
 
     const logStart = () => {
         getDate()
-        const { d, dateNow, idValue, timeNow } = getDate()
+        const { dateNow, idValue, timeNow } = getDate()
         storeTempObjContent("date", {date: `${dateNow}`})
         storeTempObjContent("started", {started: `${timeNow}`})
         storeTempObjContent("idValue", {idValue: `${idValue}.${uuid().substring(0,15)}`})
@@ -107,8 +107,8 @@ const DataProvider = ({ children }) => {
                 breakTime, toggleBreak,
 
                 mainHour, setMainHour,
-                mainMinute, setMainMinute,
-                mainSecond, setMainSecond,
+                mainMinute, mainSecond,
+                setMainMinute, setMainSecond,
 
                 breakHour, setBreakHour,
                 breakMinute, setBreakMinute,

@@ -36,7 +36,7 @@ const Break = ({ breakTime, disabled }) => {
         }
         if(breakTime === !!0 && disabled) {
             setBreakHour(1)
-            setBreakMinute(5)
+            setBreakMinute(30)
             setBreakSecond(0)
         }
     }, [breakTime, disabled])

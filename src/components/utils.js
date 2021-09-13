@@ -9,6 +9,7 @@ export const Box = styled.div`
     flex-direction: column;
     height: 44rem;
     overflow: hidden;
+    position: relative;
     width: 22rem;
 `
 export const SubBox = styled.div`
