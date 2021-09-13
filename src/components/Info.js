@@ -38,10 +38,10 @@ const Info = () => {
 
     const deleteAll = () => {
         localStorage.removeItem('timeLog');
-        window.location.reload();
         setConfirmed(false);
         clearInterval(ticker);
         setTimer(5);
+        window.location.reload();
     }
 
     return (
