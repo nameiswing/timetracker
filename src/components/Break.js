@@ -20,12 +20,15 @@ const Break = ({ breakTime, disabled }) => {
         if(breakTime === !!1) {
             const isCounting = setInterval( () => {
                 if(breakHour === 0 && breakMinute === 0 && breakSecond === 0) return 
+                // eslint-disable-next-line
                 setBreakSecond( breakSecond -= 1 )
                 if(breakSecond === -1) {
                     setBreakSecond( breakSecond = 59 )
+                    // eslint-disable-next-line
                     setBreakMinute( breakMinute -= 1 )
                     if(breakMinute === - 1 && breakHour !== 0) {
                         setBreakMinute( breakMinute = 59 )
+                        // eslint-disable-next-line
                         setBreakHour( breakHour -= 1)
                     }
                 }

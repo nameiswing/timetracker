@@ -17,12 +17,15 @@ const Timer = ({ startTime }) => {
     useEffect( () => { 
         if(startTime) {
             const interval = setInterval( () => { 
+                // eslint-disable-next-line
                 setMainSecond( mainSecond += 1 ) 
                 if( mainSecond === 60) {
                     setMainSecond( mainSecond = 0 )
+                    // eslint-disable-next-line
                     setMainMinute( mainMinute += 1 )
                     if( mainMinute === 60) {
                         setMainMinute( mainMinute = 0 )
+                        // eslint-disable-next-line
                         setMainHour( mainHour += 1 )
                     }
                 }

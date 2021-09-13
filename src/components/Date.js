@@ -17,7 +17,7 @@ const DateComponent = ({ time }) => {
         //new object was created from destructured values so that it won't mutate
         startTime.current = now.timeNow
         startDate.current = now.dateNow
-    }, [time])
+    }, [time, getDate])
 
     return (
         <Wrap backgroundColor="transparent" width="100%">
