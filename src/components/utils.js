@@ -6,6 +6,7 @@ export const Box = styled.div`
     border-radius: .5rem;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
     display: flex;
+    flex-shrink: 0;
     flex-direction: column;
     height: 44rem;
     overflow: hidden;

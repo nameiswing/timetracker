@@ -26,9 +26,8 @@ html {
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   margin: 0;
   height: 100%;
 }
