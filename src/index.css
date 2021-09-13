@@ -20,10 +20,15 @@
   font-family: var(--font-main);
 }
 
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-  height: 100vh;
+  height: 100%;
 }
